@@ -9,7 +9,7 @@ DataHawk is a OSINT tool for scraping websites to identify sensitive information
 - Proxy support for anonymous scraping.
 - Dynamic user-agent rotation.
 ## Installation
-1. **Clone the repo:**
+1. **Download or clone the repo:**
    ```
    cd DataHawk
    ```
