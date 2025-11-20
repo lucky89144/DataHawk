@@ -63,7 +63,7 @@ class OSINTSpider(scrapy.Spider):
         self.user_agents = self.get_user_agents()  # Dynamic user agent list
 
     def get_user_agents(self):
-        # Fetch user agents from external source
+        # Fetch user agents 
         try:
             response = requests.get("https://user-agents.net/")  # Example URL, replace with a real one if needed
             user_agents = re.findall(r'User-Agent: (.+?)\n', response.text)  # Extract user agents
@@ -92,7 +92,7 @@ class OSINTSpider(scrapy.Spider):
         page_url = response.url
         page_content = response.text
 
-        # Define regex patterns for multiple queries
+        # Define regex patterns for queries
         patterns = {
             'email': r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+',
             'username': r'@\w+',
@@ -122,7 +122,7 @@ class OSINTSpider(scrapy.Spider):
             yield response.follow(next_page, self.parse)
 
     def save_finding(self, data, source_url):
-        # Save findings to text file, CSV, or JSON based on preference
+        # Save findings to text file, CSV, or JSON 
         if self.output_format == 'txt':
             with open(self.output_file, 'a') as f:
                 f.write(f"Data: {data}\nSource URL: {source_url}\nScraped At: {datetime.now(timezone.utc).isoformat()}\n{'-'*40}\n")
@@ -190,5 +190,5 @@ if __name__ == "__main__":
     # Get URLs from user if not provided in arguments
     urls = get_urls_from_user()
     
-    # Run crawler with user-supplied arguments and multithreading
+    # Run crawler with arguments and multithreading
     run_osint_crawler(start_urls=urls, query=args.query, proxy=args.proxy, threads=args.threads, verbose=args.verbose, output_format=args.output)
